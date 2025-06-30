@@ -122,7 +122,6 @@ public class World {
             concrete.checkHit();
             Coin newCoin = concrete.getGeneratedCoin();
             if (newCoin != null) {
-                Log.d("World", "Adding new coin to coins list. Total coins: " + coins.size());
                 coins.add(newCoin);
             }
         });
