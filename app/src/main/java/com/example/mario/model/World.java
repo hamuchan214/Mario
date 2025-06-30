@@ -100,6 +100,8 @@ public class World {
         enemies.forEach(enemy -> enemy.setPlayer(player));
         concretes.forEach(concrete -> concrete.setPlayer(player));
         flag.setPlayer(player);
+        pole.setPlayer(player);
+        pole.setFlag(flag);
 
         //object collision detection
         bridges.forEach(bridge -> player.addLimitCharacter(bridge));
@@ -114,8 +116,8 @@ public class World {
         enemies.forEach(enemy -> enemy.move());
         enemies.forEach(enemy -> enemy.checkCollision());
         concretes.forEach(concrete -> concrete.checkHit());
-        flag.checkcollision();
-        flag.move(); // フラグの移動処理を追加
+        pole.checkCollision(); // ポールの衝突判定
+        flag.move(); // フラグの移動処理
 
         // フラグが地面に到達したらゴールを表示
         if (flag.isDowned() && !gameClear) {
