@@ -116,7 +116,16 @@ public class World {
         player.move();
         enemies.forEach(enemy -> enemy.move());
         enemies.forEach(enemy -> enemy.checkCollision());
-        concretes.forEach(concrete -> concrete.checkHit());
+        
+        // コンクリートの衝突判定とコイン生成
+        concretes.forEach(concrete -> {
+            concrete.checkHit();
+            Coin newCoin = concrete.getGeneratedCoin();
+            if (newCoin != null) {
+                coins.add(newCoin);
+            }
+        });
+        
         pole.checkCollision(); // ポールの衝突判定
         flag.move(); // フラグの移動処理
         goal.checkCollision(); // ゴールの衝突判定
