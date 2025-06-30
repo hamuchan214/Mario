@@ -102,6 +102,7 @@ public class World {
         flag.setPlayer(player);
         pole.setPlayer(player);
         pole.setFlag(flag);
+        goal.setPlayer(player);
 
         //object collision detection
         bridges.forEach(bridge -> player.addLimitCharacter(bridge));
@@ -118,10 +119,15 @@ public class World {
         concretes.forEach(concrete -> concrete.checkHit());
         pole.checkCollision(); // ポールの衝突判定
         flag.move(); // フラグの移動処理
+        goal.checkCollision(); // ゴールの衝突判定
 
         // フラグが地面に到達したらゴールを表示
-        if (flag.isDowned() && !gameClear) {
+        if (flag.isDowned() && !goal.isActive()) {
             goal.activate();
+        }
+
+        // プレイヤーがゴールに触れたらゲームクリア
+        if (goal.hasCollided() && !gameClear) {
             gameClear = true;
         }
 
