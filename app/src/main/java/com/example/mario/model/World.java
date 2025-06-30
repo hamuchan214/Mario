@@ -115,7 +115,13 @@ public class World {
         enemies.forEach(enemy -> enemy.checkCollision());
         concretes.forEach(concrete -> concrete.checkHit());
         flag.checkcollision();
+        flag.move(); // フラグの移動処理を追加
 
+        // フラグが地面に到達したらゴールを表示
+        if (flag.isDowned() && !gameClear) {
+            goal.activate();
+            gameClear = true;
+        }
 
         coins.forEach(coin -> coin.move());
         coins.removeIf(coin -> !coin.isActive());
