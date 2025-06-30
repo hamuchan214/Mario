@@ -19,17 +19,21 @@ public class Concrete extends GameCharacter {
     }
 
     public void checkHit(){
-        if (!isHit && player.getYSpeed() >= 0){
+        Log.d("Concrete", "checkHit called - isHit: " + isHit + ", player ySpeed: " + player.getYSpeed());
+        if (!isHit && player.getYSpeed() < 0){ // プレイヤーが上向きに移動している時
+            Log.d("Concrete", "Checking overlap - Concrete pos: (" + x + ", " + y + "), Player pos: (" + player.getX() + ", " + player.getY() + ")");
             if (this.overlap(player)){
-                Log.d("Mainactivity","concrete hit detected");
+                Log.d("Concrete", "COLLISION DETECTED! Calling hit()");
                 hit();
             }
         }
     }
 
     public void hit() {
+        Log.d("Concrete", "hit() called - isHit: " + isHit);
         if (!isHit) { // まだ叩かれていない場合のみ反応
             isHit = true; // 叩かれた状態にする
+            Log.d("Concrete", "Generating coin at position: (" + (this.x + this.xSize / 2 - 16) + ", " + (this.y + this.ySize / 2 - 16) + ")");
 
             // 新しいコインを生成し、ブロックの中央から少し上に配置
             generatedCoin = new Coin(this.x + this.xSize / 2 - 16, this.y + this.ySize / 2 - 16);
@@ -38,6 +42,9 @@ public class Concrete extends GameCharacter {
 
     public Coin getGeneratedCoin() {
         Coin coin = generatedCoin;
+        if (coin != null) {
+            Log.d("Concrete", "Returning generated coin");
+        }
         generatedCoin = null; // 一度取得したらnullにリセット
         return coin;
     }
